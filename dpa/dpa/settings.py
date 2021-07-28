@@ -198,7 +198,7 @@ DPA_REPORT_FILE_PATH = 'media/xlsx/PlanitRetail_Tlog.xlsx'
 DPA_ZIP_FILE_PATH = 'media/zip/PlanitRetail_Tlog.zip'
 
 # Email
-if not DEBUG:
+if DEBUG:
     # Django console email backend for printing email on console rather than sending the real email.
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 else:

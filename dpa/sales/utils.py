@@ -54,7 +54,7 @@ def send_email_with_file(zip_filepath, email_recipients):
     #
     subject = f"DPA Store Report - {datetime.now().strftime('%B %Y')}"
     message = """ Hello User, 
-    Please file zip file attachement containg coupon redemption report on various Stores.
+    Please find zip file attachement containg coupon redemption report on various Stores.
 
 
     -Thanks and regards
