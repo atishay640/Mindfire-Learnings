@@ -4,6 +4,7 @@ from os import path
 from django.conf import settings
 from django.core.mail import EmailMessage
 from datetime import datetime
+import jwt
 
 
 def write_to_xlsxfile(records):
@@ -53,9 +54,14 @@ def archive(filepath):
 def send_email_with_file(zip_filepath, email_recipients):
     #
     subject = f"DPA Store Report - {datetime.now().strftime('%B %Y')}"
-    message = """ Hello User, 
+    payload = {"file" : zip_filepath}
+    token = generate_jwt_token(payload)
+
+    message = f""" Hello User, 
     Please find zip file attachement containg coupon redemption report on various Stores.
 
+    Click on the below link to download latest report zip: 
+    http://localhost:8000/sales/media/download/{token}
 
     -Thanks and regards
     DPA Support Team
@@ -63,5 +69,12 @@ def send_email_with_file(zip_filepath, email_recipients):
 
     email_from = settings.EMAIL_HOST_USER
     email = EmailMessage(subject, message, email_from, email_recipients)
-    email.attach_file(zip_filepath)
+    # email.attach_file(zip_filepath)
     email.send()
+
+
+def generate_jwt_token(payload:dict):
+    return jwt.encode(payload, settings.DPA_JWT_SECRET , algorithm=settings.DPA_JWT_ALGORITHM)
+
+def get_jwt_payload(token):
+    return jwt.decode(token, settings.DPA_JWT_SECRET , algorithms=[settings.DPA_JWT_ALGORITHM])
