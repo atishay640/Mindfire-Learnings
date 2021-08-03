@@ -1,8 +1,6 @@
 {% load account %}
 {% user_display user as user_display %}
 {% load i18n %}
-{% load inlinecss %}
-{% inlinecss "account/Css/Email-Styles.css" %}
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -47,4 +45,3 @@
 	</footer>
 </body>
 
-{% endinlinecss %}
