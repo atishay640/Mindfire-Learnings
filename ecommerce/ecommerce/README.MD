@@ -1,5 +1,5 @@
 # Ecommerce App
-Django integration with Salesforce and reach frontend.
+Django integration with Salesforce and React.js frontend.
 
 ## Setup: 
 
