@@ -2,7 +2,6 @@ from celery import shared_task
 from apps.shop import sf_models
 from django.conf import settings
 from apps.shop import models
-import pytz
 
 
 @shared_task
@@ -47,7 +46,7 @@ def sync_orders_to_saleforce():
         print(last_order.name)
         print(
             f"Collecting orders created after : {last_order.created_date} from SF DB")
-        db_orders = DB_ORDER_QUERYSET.filter(created_date__gt=last_order.created_date.astimezone(pytz.utc)).values('status', 'effective_date', 'name', 'total_amount', 'shipping_street', 'shipping_city',
+        db_orders = DB_ORDER_QUERYSET.filter(created_date__gt=last_order.created_date).values('status', 'effective_date', 'name', 'total_amount', 'shipping_street', 'shipping_city',
                                                                                                                    'shipping_state', 'shipping_postal_code', 'shipping_country', 'shipping_latitude',
                                                                                                                    'shipping_longitude', 'shipping_geocode_accuracy', 'shipping_address', 'effective_date')
     else:

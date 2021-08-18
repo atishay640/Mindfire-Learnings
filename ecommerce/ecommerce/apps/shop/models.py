@@ -22,7 +22,7 @@ class Order(models.Model):
     status = models.CharField(db_column='Status', max_length=100, choices=[('Draft', 'Draft'), ('Activated', 'Activated')])
     order_number = models.CharField(db_column='OrderNumber', max_length=30, )
     total_amount = models.DecimalField(db_column='TotalAmount', max_digits=18, decimal_places=2, verbose_name='Order Amount', )
-    created_date = models.DateTimeField(db_column='CreatedDate', )
+    created_date = models.DateTimeField(db_column='CreatedDate', auto_now_add=True)
     created_by = models.ForeignKey(User, models.DO_NOTHING, db_column='CreatedById', related_name='order_createdby_set', verbose_name='Created By ID', null=True)
     is_deleted = models.BooleanField(db_column='IsDeleted', verbose_name='Deleted', default=False)
     shipping_street = models.TextField(db_column='ShippingStreet', blank=True, null=True)
@@ -34,7 +34,7 @@ class Order(models.Model):
     shipping_longitude = models.DecimalField(db_column='ShippingLongitude', max_digits=18, decimal_places=15, blank=True, null=True)
     shipping_geocode_accuracy = models.CharField(db_column='ShippingGeocodeAccuracy', max_length=40, choices=[('Address', 'Address'), ('NearAddress', 'NearAddress'), ('Block', 'Block'), ('Street', 'Street'), ('ExtendedZip', 'ExtendedZip'), ('Zip', 'Zip'), ('Neighborhood', 'Neighborhood'), ('City', 'City'), ('County', 'County'), ('State', 'State'), ('Unknown', 'Unknown')], blank=True, null=True)
     shipping_address = models.TextField(db_column='ShippingAddress', blank=True, null=True)  # This field type is a guess.
-    effective_date = models.DateField(db_column='EffectiveDate', verbose_name='Order Start Date')
+    effective_date = models.DateField(db_column='EffectiveDate', verbose_name='Order Start Date', auto_now_add=True)
 
     class Meta:
         verbose_name = 'Order'
